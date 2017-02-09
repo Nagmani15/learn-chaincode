@@ -33,14 +33,14 @@ type SimpleChaincode struct {
 func main() {
 	err := shim.Start(new(SimpleChaincode))
 	if err != nil {
-		fmt.Printf("Error starting Simple chaincode: %s", err)
+		fmt.Printf("Error starting Nagmani Simple chaincode: %s", err)
 	}
 }
 
 // Init resets all the things
 func (t *SimpleChaincode) Init(stub shim.ChaincodeStubInterface, function string, args []string) ([]byte, error) {
 	if len(args) != 1 {
-		return nil, errors.New("Incorrect number of arguments. Expecting 1")
+		return nil, errors.New("Incorrect number Nagmani of arguments. Expecting 1")
 	}
 
 	return nil, nil
@@ -54,7 +54,7 @@ func (t *SimpleChaincode) Invoke(stub shim.ChaincodeStubInterface, function stri
 	if function == "init" {													//initialize the chaincode state, used as reset
 		return t.Init(stub, "init", args)
 	}
-	fmt.Println("invoke did not find func: " + function)					//error
+	fmt.Println("invoke did not find Nagmani func: " + function)					//error
 
 	return nil, errors.New("Received unknown function invocation: " + function)
 }
@@ -65,10 +65,10 @@ func (t *SimpleChaincode) Query(stub shim.ChaincodeStubInterface, function strin
 
 	// Handle different functions
 	if function == "dummy_query" {											//read a variable
-		fmt.Println("hi there " + function)						//error
+		fmt.Println("hi Nagmani " + function)						//error
 		return nil, nil;
 	}
-	fmt.Println("query did not find func: " + function)						//error
+	fmt.Println("query  did not find func: " + function)						//error
 
 	return nil, errors.New("Received unknown function query: " + function)
 }
