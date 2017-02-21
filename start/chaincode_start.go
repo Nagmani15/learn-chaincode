@@ -80,13 +80,13 @@ func (t *SimpleChaincode) Query(stub shim.ChaincodeStubInterface, function strin
 	return nil, errors.New("############Received unknown function query: " + function)
 }
 //transfer money
-func (t *SimpleChaincode) getLatest_SenderAmount(stub shim.ChaincodeStubInterface,args []string) ([]byte, error) {
+func (t *SimpleChaincode) getLatest_SenderAmount(stub shim.ChaincodeStubInterface,args []string) (string, error) {
  amount, err := stub.GetState(args[0]);
 	if err != nil { return nil, errors.New("Couldn't get attribute 'amount'. Error: "+amount + err.Error()) }
 	return nil, nil
 }
 //transfer money
-func (t *SimpleChaincode) transfer_Sender_Reciever_amount(stub shim.ChaincodeStubInterface,args []string) ([]byte, error) {
+func (t *SimpleChaincode) transfer_Sender_Reciever_amount(stub shim.ChaincodeStubInterface,args []string) (string, error) {
 amount, err := t.getLatest_SenderAmount(stub, args);
 // err: = stub.PutState(Sender_Amount, amount-[]byte(args[0]))
 
@@ -94,7 +94,7 @@ amount, err := t.getLatest_SenderAmount(stub, args);
 	return nil, errors.New("############Received unknown function query: "+amount)
 }
 //transfer money
-func (t *SimpleChaincode) transfer_To_Reciever_amount(stub shim.ChaincodeStubInterface,args []string) ([]byte, error) {
+func (t *SimpleChaincode) transfer_To_Reciever_amount(stub shim.ChaincodeStubInterface,args []string) (string, error) {
 amount, err := t.getLatest_SenderAmount(stub, args);
 // err = stub.PutState("Sender_Amount", amount+args[0])
 
