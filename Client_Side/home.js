@@ -20,7 +20,7 @@ angular.module('home',[]).controller('homeApp',function($scope)
 	    "id": 1
 	};
 		 
-	   var res = $http.post('http://98566dc562784be68bb18aac6b11a71e-vp3.us.blockchain.ibm.com:5001', dataObj, {
+	   var res = $http.post('/', dataObj, {
                     headers: {
                         'Content-Type': 'application/json',
 						'Access-Control-Allow-Origin': '*.*',
