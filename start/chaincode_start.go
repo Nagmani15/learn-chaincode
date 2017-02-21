@@ -57,7 +57,7 @@ func (t *SimpleChaincode) Invoke(stub shim.ChaincodeStubInterface, function stri
 	if function == "init" {													//initialize the chaincode state, used as reset
 		return t.Init(stub, "init", []byte(args[0]))
 	}else if function == "transfer_Sender_Reciever_amount"{
-	return t.transfer_Sender_Reciever_amount(stub, []byte(args[0]);
+	return t.transfer_Sender_Reciever_amount(stub, []byte(args[0]));
     }	
 	fmt.Println("############invoke did not find Nagmani func: " + function)					//error
 
