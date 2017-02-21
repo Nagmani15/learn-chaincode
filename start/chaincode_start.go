@@ -79,17 +79,20 @@ func (t *SimpleChaincode) Query(stub shim.ChaincodeStubInterface, function strin
 
 	return nil, errors.New("############Received unknown function query: " + function)
 }
+//transfer money
 func (t *SimpleChaincode) getLatest_SenderAmount(stub shim.ChaincodeStubInterface,args []string) ([]byte, error) {
  amount, err := stub.GetState([]byte(args[0]));
 	if err != nil { return "", errors.New("Couldn't get attribute 'amount'. Error: " + err.Error()) }
 	return string(amount), nil
 }
+//transfer money
 func (t *SimpleChaincode) transfer_Sender_Reciever_amount(stub shim.ChaincodeStubInterface,args []string) ([]byte, error) {
 amount, err := t.getLatest_SenderAmount(stub, []byte(args[0]);
  err: = stub.PutState(Sender_Amount, amount-[]byte(args[0]))
 
 	if err != nil { fmt.Printf("SAVE_CHANGES: Error storing payment record: %s", err); return false, errors.New("Error storing payment record") }
 }
+//transfer money
 func (t *SimpleChaincode) transfer_To_Reciever_amount(stub shim.ChaincodeStubInterface,args []string) ([]byte, error) {
 amount, err := t.getLatest_SenderAmount(stub, []byte(args[0]));
  err = stub.PutState("Sender_Amount", amount+[]byte(args[0]))
