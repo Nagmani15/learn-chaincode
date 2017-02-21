@@ -40,7 +40,7 @@ func main() {
 // Init resets all the things
 func (t *SimpleChaincode) Init(stub shim.ChaincodeStubInterface, function string, args []string) ([]byte, error) {
 fmt.Println("Init is running " )
-var err;
+var err error
 	if len(args) != 1 {
 		return nil, errors.New("############Incorrect number  of arguments. Expecting 1")
 	}
@@ -87,7 +87,7 @@ func (t *SimpleChaincode) getLatest_SenderAmount(stub shim.ChaincodeStubInterfac
 }
 //transfer money
 func (t *SimpleChaincode) transfer_Sender_Reciever_amount(stub shim.ChaincodeStubInterface,args []string) ([]byte, error) {
-amount, err := t.getLatest_SenderAmount(stub, []byte(args[0]);
+amount, err := t.getLatest_SenderAmount(stub, []byte(args[0]));
  err: = stub.PutState(Sender_Amount, amount-[]byte(args[0]))
 
 	if err != nil { fmt.Printf("SAVE_CHANGES: Error storing payment record: %s", err); return false, errors.New("Error storing payment record") }
