@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<script src="login.js"></script>
+<body>
+<Table><TR><TD></TD><TD></TD><TD></TD><TD text-align="center" >Login</TD></TR>
+</table>
+</BR>
+<div  ng-app="loginAPP" ng-controller="loginController">
+ 	
+	<label> User Name : <input type="text" placeholder="Username" ng-model="username" /></label></BR>
+	<label> Password :&amp;amp; <input type="password" placeholder="Password" ng-model="password" /></label></BR></BR>
+	<button ng-click="authenticate()">Login</button>
+</div>
+
+</body>
+</html>
