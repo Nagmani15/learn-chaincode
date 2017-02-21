@@ -40,7 +40,7 @@ func main() {
 // Init resets all the things
 func (t *SimpleChaincode) Init(stub shim.ChaincodeStubInterface, function string, args []string) ([]byte, error) {
 fmt.Println("Init is running " )
-var err
+var err;
 	if len(args) != 1 {
 		return nil, errors.New("############Incorrect number  of arguments. Expecting 1")
 	}
@@ -55,7 +55,7 @@ func (t *SimpleChaincode) Invoke(stub shim.ChaincodeStubInterface, function stri
 
 	// Handle different functions
 	if function == "init" {													//initialize the chaincode state, used as reset
-		return t.Init(stub, "init", []byte(args[0])
+		return t.Init(stub, "init", []byte(args[0]))
 	}else if function == "transfer_Sender_Reciever_amount"{
 	return t.transfer_Sender_Reciever_amount(stub, []byte(args[0]);
     }	
@@ -73,26 +73,26 @@ func (t *SimpleChaincode) Query(stub shim.ChaincodeStubInterface, function strin
 		fmt.Println("########################hi Nagmani " + function)						//error
 		return nil, nil;
 	} else if  function == "getLatest_SenderAmount"   {
-	 return t.getLatest_SenderAmount(stub, []byte(args[0]);
+	 return t.getLatest_SenderAmount(stub, []byte(args[0]));
 	}
 	fmt.Println("query  did not find func: " + function)						//error
 
 	return nil, errors.New("############Received unknown function query: " + function)
 }
 func (t *SimpleChaincode) getLatest_SenderAmount(stub shim.ChaincodeStubInterface,args []string) ([]byte, error) {
- amount, err := stub.GetState([]byte(args[0]);
+ amount, err := stub.GetState([]byte(args[0]));
 	if err != nil { return "", errors.New("Couldn't get attribute 'amount'. Error: " + err.Error()) }
 	return string(amount), nil
 }
 func (t *SimpleChaincode) transfer_Sender_Reciever_amount(stub shim.ChaincodeStubInterface,args []string) ([]byte, error) {
 amount, err := t.getLatest_SenderAmount(stub, []byte(args[0]);
- err: = stub.PutState(Sender_Amount, amount-[]byte(args[0])
+ err: = stub.PutState(Sender_Amount, amount-[]byte(args[0]))
 
 	if err != nil { fmt.Printf("SAVE_CHANGES: Error storing payment record: %s", err); return false, errors.New("Error storing payment record") }
 }
 func (t *SimpleChaincode) transfer_To_Reciever_amount(stub shim.ChaincodeStubInterface,args []string) ([]byte, error) {
-amount, err := t.getLatest_SenderAmount(stub, []byte(args[0]);
- err = stub.PutState("Sender_Amount", amount+[]byte(args[0])
+amount, err := t.getLatest_SenderAmount(stub, []byte(args[0]));
+ err = stub.PutState("Sender_Amount", amount+[]byte(args[0]))
 
 	if err != nil { fmt.Printf("SAVE_CHANGES: Error storing payment record: %s", err); return false, errors.New("Error storing payment record") }
 }
