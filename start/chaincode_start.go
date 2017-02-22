@@ -81,7 +81,8 @@ func (t *SimpleChaincode) Query(stub shim.ChaincodeStubInterface, function strin
 }
 //transfer money
 func (t *SimpleChaincode) getLatest_SenderAmount(stub shim.ChaincodeStubInterface,args []string) ([]byte, error) {
- amount, err := stub.GetState(args[0]);
+ //amount, err := stub.GetState(args[0]);
+ amount, err := stub.GetState(Sender_Amount); 
 	if err != nil { return nil, errors.New("Couldn't get attribute 'amount'. Error: "+amount + err.Error()) }
 	return amount, nil
 }
