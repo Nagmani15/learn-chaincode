@@ -33,16 +33,19 @@ type SimpleChaincode struct {
 func main() {
 	err := shim.Start(new(SimpleChaincode))
 	if err != nil {
-		fmt.Printf("Error starting Simple chaincode: %s", err)
+		fmt.Printf("############Error starting Nagmani Simple chaincode: %s", err)
 	}
 }
 
 // Init resets all the things
 func (t *SimpleChaincode) Init(stub shim.ChaincodeStubInterface, function string, args []string) ([]byte, error) {
-	if len(args) != 1 {
-		return nil, errors.New("Incorrect number of arguments. Expecting 1")
-	}
+fmt.Println("Init is running " )
 
+	if len(args) != 1 {
+		return nil, errors.New("############Incorrect number  of arguments. Expecting 1")
+	}
+ stub.PutState("Sender_Amount", []byte(args[0]))
+  fmt.Println(" Data writing done " )
 	return nil, nil
 }
 
@@ -53,10 +56,12 @@ func (t *SimpleChaincode) Invoke(stub shim.ChaincodeStubInterface, function stri
 	// Handle different functions
 	if function == "init" {													//initialize the chaincode state, used as reset
 		return t.Init(stub, "init", args)
-	}
-	fmt.Println("invoke did not find func: " + function)					//error
+	}else if function == "transfer_Sender_Reciever_amount"{
+	return t.transfer_Sender_Reciever_amount(stub, args);
+    }	
+	fmt.Println("############invoke did not find Nagmani func: " + function)					//error
 
-	return nil, errors.New("Received unknown function invocation: " + function)
+	return nil, errors.New("############Received unknown function invocation: " + function)
 }
 
 // Query is our entry point for queries
@@ -65,10 +70,35 @@ func (t *SimpleChaincode) Query(stub shim.ChaincodeStubInterface, function strin
 
 	// Handle different functions
 	if function == "dummy_query" {											//read a variable
-		fmt.Println("hi there " + function)						//error
+		fmt.Println("########################hi Nagmani " + function)						//error
 		return nil, nil;
+	} else if  function == "getLatest_SenderAmount"   {
+	 return t.getLatest_SenderAmount(stub, args);
 	}
-	fmt.Println("query did not find func: " + function)						//error
+	fmt.Println("query  did not find func: " + function)						//error
 
-	return nil, errors.New("Received unknown function query: " + function)
+	return nil, errors.New("############Received unknown function query: " + function)
+}
+//transfer money
+func (t *SimpleChaincode) getLatest_SenderAmount(stub shim.ChaincodeStubInterface,args []string) ([]byte, error) {
+ //amount, err := stub.GetState(args[0]);
+ amount, err := stub.GetState(Sender_Amount); 
+	if err != nil { return nil, errors.New("Couldn't get attribute 'amount'. Error: "+string(amount[:]) + err.Error()) }
+	return amount, nil
+}
+//transfer money
+func (t *SimpleChaincode) transfer_Sender_Reciever_amount(stub shim.ChaincodeStubInterface,args []string) ([]byte, error) {
+amount, err := t.getLatest_SenderAmount(stub, args);
+// err: = stub.PutState(Sender_Amount, amount-[]byte(args[0]))
+
+	if err != nil { fmt.Printf("SAVE_CHANGES: Error storing payment record: %s", err); return nil, errors.New("Error storing payment record") }
+	return nil, errors.New("############Received unknown function query: "+string(amount[:]))
+}
+//transfer money
+func (t *SimpleChaincode) transfer_To_Reciever_amount(stub shim.ChaincodeStubInterface,args []string) ([]byte, error) {
+amount, err := t.getLatest_SenderAmount(stub, args);
+// err = stub.PutState("Sender_Amount", amount+args[0])
+
+	if err != nil { fmt.Printf("SAVE_CHANGES: Error storing payment record: %s", err); return nil, errors.New("Error storing payment record"+string(amount[:])) }
+	return nil, errors.New("############Received unknown function query: " )
 }
