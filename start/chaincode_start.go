@@ -83,7 +83,7 @@ func (t *SimpleChaincode) Query(stub shim.ChaincodeStubInterface, function strin
 func (t *SimpleChaincode) getLatest_SenderAmount(stub shim.ChaincodeStubInterface,args []string) ([]byte, error) {
  //amount, err := stub.GetState(args[0]);
  amount, err := stub.GetState(Sender_Amount); 
-	if err != nil { return nil, errors.New("Couldn't get attribute 'amount'. Error: "+amount + err.Error()) }
+	if err != nil { return nil, errors.New("Couldn't get attribute 'amount'. Error: "+string(amount[:]) + err.Error()) }
 	return amount, nil
 }
 //transfer money
@@ -92,13 +92,13 @@ amount, err := t.getLatest_SenderAmount(stub, args);
 // err: = stub.PutState(Sender_Amount, amount-[]byte(args[0]))
 
 	if err != nil { fmt.Printf("SAVE_CHANGES: Error storing payment record: %s", err); return nil, errors.New("Error storing payment record") }
-	return nil, errors.New("############Received unknown function query: "+amount)
+	return nil, errors.New("############Received unknown function query: "+string(amount[:]))
 }
 //transfer money
 func (t *SimpleChaincode) transfer_To_Reciever_amount(stub shim.ChaincodeStubInterface,args []string) ([]byte, error) {
 amount, err := t.getLatest_SenderAmount(stub, args);
 // err = stub.PutState("Sender_Amount", amount+args[0])
 
-	if err != nil { fmt.Printf("SAVE_CHANGES: Error storing payment record: %s", err); return nil, errors.New("Error storing payment record"+amount) }
+	if err != nil { fmt.Printf("SAVE_CHANGES: Error storing payment record: %s", err); return nil, errors.New("Error storing payment record"+string(amount[:])) }
 	return nil, errors.New("############Received unknown function query: " )
 }
