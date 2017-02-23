@@ -58,8 +58,8 @@ func (t *SimpleChaincode) Invoke(stub shim.ChaincodeStubInterface, function stri
 	// Handle different functions
 	if function == "init" {													//initialize the chaincode state, used as reset
 		return t.Init(stub, "init", args)
-	}else if function == "transfer_Sender_Reciever_amount"{
-	return t.transfer_Sender_Reciever_amount(stub, args);
+	}else if function == "sendMoney"{
+	return t.sendMoney(stub, args);
     }	
 	fmt.Println("############invoke did not find Nagmani func: " + function)					//error
 
@@ -74,8 +74,8 @@ func (t *SimpleChaincode) Query(stub shim.ChaincodeStubInterface, function strin
 	if function == "dummy_query" {											//read a variable
 		fmt.Println("########################hi Nagmani " + function)						//error
 		return nil, nil;
-	} else if  function == "getLatest_SenderAmount"   {
-	 return t.getLatest_SenderAmount(stub, args);
+	} else if  function == "checkBalance"   {
+	 return t.checkBalance(stub, args);
 	}
 	fmt.Println("query  did not find func: " + function)						//error
 
