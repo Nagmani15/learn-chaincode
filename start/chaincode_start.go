@@ -93,7 +93,7 @@ func (t *SimpleChaincode) sendMoney(stub shim.ChaincodeStubInterface,args []stri
 amount, err := stub.GetState("Initial_Amount");
 	var amt int;
 	amt = amount-strconv.ParseInt(args[0]);
-    err: = stub.PutState("Initial_Amount", []byte(strconv.Itoa(amt)));
+    err := stub.PutState("Initial_Amount", []byte(strconv.Itoa(amt)));
 
 	if err != nil { fmt.Printf("SAVE_CHANGES: Error storing payment record: %s", err); return nil, errors.New("Error storing payment record") }
 	return nil, errors.New("############Received unknown function query: "+string(amount[:]))
