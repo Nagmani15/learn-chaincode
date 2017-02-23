@@ -91,7 +91,7 @@ func (t *SimpleChaincode) checkBalance(stub shim.ChaincodeStubInterface,args []s
 //transfer money
 func (t *SimpleChaincode) sendMoney(stub shim.ChaincodeStubInterface,args []string) ([]byte  , error) {
 	amount, err := stub.GetState("Initial_Amount");
-	var balAmt, transferAmt int;
+	var balAmt, transferAmt int64;
 	balAmt, err = strconv.ParseInt(string(amount[:]),0,64);
 	transferAmt, err = strconv.ParseInt(args[0],0, 64);
     err = stub.PutState("Initial_Amount", []byte(strconv.Itoa( balAmt- transferAmt)));
