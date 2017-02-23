@@ -84,13 +84,13 @@ func (t *SimpleChaincode) Query(stub shim.ChaincodeStubInterface, function strin
 //transfer money
 func (t *SimpleChaincode) checkBalance(stub shim.ChaincodeStubInterface,args []string) ([]byte, error) {
  //amount, err := stub.GetState(args[0]);
- amount, err := stub.GetState(Initial_Amount); 
+ amount, err := stub.GetState("Initial_Amount"); 
 	if err != nil { return nil, errors.New("Couldn't get attribute 'amount'. Error: "+string(amount[:]) + err.Error()) }
 	return amount, nil
 }
 //transfer money
 func (t *SimpleChaincode) sendMoney(stub shim.ChaincodeStubInterface,args []string) ([]byte, error) {
-amount, err := stub.GetState(Initial_Amount);
+amount, err := stub.GetState("Initial_Amount");
  //err: = stub.PutState(Initial_Amount, amount-[]byte(args[0]))
 
 	if err != nil { fmt.Printf("SAVE_CHANGES: Error storing payment record: %s", err); return nil, errors.New("Error storing payment record") }
