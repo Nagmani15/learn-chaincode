@@ -4,7 +4,7 @@
 	var initialAmount=$scope.amount;
 	var accountName=$scope.accountName;
 	var timestamp=new Date();
-	var hashcode='1111';
+	//var hashcode='1111';
 	var url='checkBalance.html?hashkey='+hashcode;
 		$window.location.href = url;
 	var dataObj = {
