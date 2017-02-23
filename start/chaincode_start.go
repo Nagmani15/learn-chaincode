@@ -92,9 +92,9 @@ func (t *SimpleChaincode) checkBalance(stub shim.ChaincodeStubInterface,args []s
 func (t *SimpleChaincode) sendMoney(stub shim.ChaincodeStubInterface,args []string) ([]byte  , error) {
 	amount, err := stub.GetState("Initial_Amount");
 	var balAmt, transferAmt int;
-	balAmt, _ := strconv.ParseInt(string(amount[:]),0,64);
-	transferAmt, _ := strconv.ParseInt(args[0],0, 64);
-    err := stub.PutState("Initial_Amount", []byte(strconv.Itoa( balAmt- transferAmt)));
+	balAmt = strconv.ParseInt(string(amount[:]),0,64);
+	transferAmt = strconv.ParseInt(args[0],0, 64);
+    err = stub.PutState("Initial_Amount", []byte(strconv.Itoa( balAmt- transferAmt)));
 
 	if err != nil { 
 		fmt.Printf("SAVE_CHANGES: Error storing payment record: %s", err); 
