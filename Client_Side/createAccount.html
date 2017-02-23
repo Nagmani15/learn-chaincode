@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<script src="createAccount.js"></script>
+<body>
+</BR>
+<CENTER><label> <H1>Create Account</H1></label></CENTER>
+<CENTER><div  ng-app="createAccountAPP" ng-controller="accountController">
+ 	
+	<label> Account Name : <input type="text" placeholder="account Name" ng-model="accountName" /></label></BR></BR>
+	<label> Initial Amount : <input type="text" placeholder="$ amount" ng-model="amount" /></label></BR></BR>
+	<button ng-click="createAccount()">Submit</button>
+</div>
+</CENTER>
+</body>
+</html>
