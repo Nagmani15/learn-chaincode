@@ -98,6 +98,9 @@ func (t *SimpleChaincode) fetchAccountDetails(stub shim.ChaincodeStubInterface,a
     var temp []byte
         a, err :=t.retrieve_Account(stub, args[0]);
         temp, err = t.get_account_details(stub,a)
+		if err != nil {
+	return nil, errors.New("fetchAccountDetails: Invalid Account")
+	}
 	    return temp, nil
 }
 //==============================================================================================================================
