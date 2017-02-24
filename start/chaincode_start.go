@@ -170,7 +170,7 @@ func (t *SimpleChaincode) sendMoney(stub shim.ChaincodeStubInterface,args []stri
 //==============================================================================================================================
 func (t *SimpleChaincode) createAccount(stub shim.ChaincodeStubInterface,accountId string, accountName string,timestamp_val string) ([]byte  , error) {
 amount, err := stub.GetState("Default_Open_Balance");
-var a Account
+var acc Account
 	acountId         := "\"AccountId\":\""+accountId+"\", "							// Variables to define the JSON
 	acountName         := "\"AccountName\":\""+accountName+"\", "	
 	balance           := "\"Balance\":\""+string(amount[:])+"\", "	
@@ -178,13 +178,13 @@ var a Account
 	
 
 	account_json := "{"+acountId+acountName+balance+timestamp+"}" 	// Concatenates the variables to create the total JSON 
-    err = json.Unmarshal([]byte(account_json), &a)	
+    err = json.Unmarshal([]byte(account_json), &acc)	
 	// If not an error then a account exists so cant create a new account with this acountId as it must be unique
-	record, err := stub.GetState(a.AccountId) 
+	record, err := stub.GetState(acc.AccountId) 
     if record != nil { 
 	return nil, errors.New("Account already exists") 
 	}
-    _, err  = t.openAccount(stub, a)
+    _, err  = t.openAccount(stub, acc)
 
 	if err != nil { 
 	fmt.Printf("CREATE_ACCOUNT: Error saving changes: %s", err); 
