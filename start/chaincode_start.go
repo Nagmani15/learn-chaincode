@@ -153,13 +153,13 @@ func (t *SimpleChaincode) sendMoney(stub shim.ChaincodeStubInterface,args []stri
 
 //	 Create Account - Creates the initial JSON for the Account and then saves it to the ledger.
 //==============================================================================================================================
-func (t *SimpleChaincode) createAccount(stub shim.ChaincodeStubInterface,accountId string, accountName string,timestamp string) ([]byte  , error) {
+func (t *SimpleChaincode) createAccount(stub shim.ChaincodeStubInterface,accountId string, accountName string,timestamp_val string) ([]byte  , error) {
 amount, err := stub.GetState("Default_Open_Balance");
 var a Account
 	acountId         := "\"AccountId\":\""+accountId+"\", "							// Variables to define the JSON
 	acountName         := "\"AccountName\":\""+accountName+"\", "	
 	balance           := "\"Balance\":\""+(string)amount+"\", "	
-	timestamp          := "\"TimeStamp\":\""+timestamp+"\"
+	timestamp          := "\"TimeStamp\":\""+timestamp_val+"\"
 	
 
 	account_json := "{"+acountId+acountName+balance+timestamp+"}" 	// Concatenates the variables to create the total JSON 
