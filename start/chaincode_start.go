@@ -20,11 +20,9 @@ import (
 	"errors"
 	"fmt"
 	"strconv"
-	"strings"
 	"github.com/hyperledger/fabric/core/chaincode/shim"
 	"encoding/json"
-	"regexp"
-)
+	)
 
 // SimpleChaincode example simple Chaincode implementation
 type SimpleChaincode struct {
@@ -160,14 +158,14 @@ amount, err := stub.GetState("Default_Open_Balance");
 var a Account
 	acountId         := "\"AccountId\":\""+accountId+"\", "							// Variables to define the JSON
 	acountName         := "\"AccountName\":\""+accountName+"\", "	
-	balance           := "\"Balance\":\""+amount+"\", "	
+	balance           := "\"Balance\":\""+(string)amount+"\", "	
 	timestamp          := "\"TimeStamp\":\""+timestamp+"\"
 	
 
 	account_json := "{"+acountId+acountName+balance+timestamp+"}" 	// Concatenates the variables to create the total JSON 
     err = json.Unmarshal([]byte(account_json), &a)	
 	// If not an error then a account exists so cant create a new account with this acountId as it must be unique
-	record, err := stub.GetState(a.acountId) 
+	record, err := stub.GetState(a.AccountId) 
     if record != nil { 
 	return nil, errors.New("Account already exists") 
 	}
@@ -193,7 +191,7 @@ func (t *SimpleChaincode) openAccount(stub shim.ChaincodeStubInterface, a Accoun
 	return false, errors.New("Error converting Account record") 
 	}
 
-	err = stub.PutState(a.acountId, bytes)
+	err = stub.PutState(a.AccountId, bytes)
 
 	if err != nil { 
 	fmt.Printf("SAVE_CHANGES: Error storing Account record: %s", err); return false, errors.New("Error storing Account record") 
