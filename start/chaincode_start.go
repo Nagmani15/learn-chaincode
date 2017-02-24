@@ -96,8 +96,8 @@ func (t *SimpleChaincode) Query(stub shim.ChaincodeStubInterface, function strin
 func (t *SimpleChaincode) fetchAccountDetails(stub shim.ChaincodeStubInterface,args []string) ([]byte, error) {
     var a Account
     var temp []byte
-        a, err =t.retrieve_Account(stub, args[0]);
-        temp, err=t.get_account_details(stub,a)
+        a =t.retrieve_Account(stub, args[0]);
+        temp=t.get_account_details(stub,a)
 	    return temp, nil
 }
 //==============================================================================================================================
