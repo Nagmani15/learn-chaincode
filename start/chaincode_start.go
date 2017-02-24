@@ -20,13 +20,25 @@ import (
 	"errors"
 	"fmt"
 	"strconv"
+	"bytes"
 	"github.com/hyperledger/fabric/core/chaincode/shim"
 	"encoding/json"
+	"net/http"
+	"io/ioutil"
 	)
 
 // SimpleChaincode example simple Chaincode implementation
 type SimpleChaincode struct {
 }
+
+// Payment structure
+type Payment struct {
+	Destination string `json:"destination"`
+	SourceAmount string `json:"sourceAmount"`
+	DestinationAmount string `json:"destinationAmount"`
+	Message	string `json:"message"`
+}
+
 //==============================================================================================================================
 //	Account - Defines the structure for a account object. JSON on right tells it what JSON fields to map to
 //			  that element when reading a JSON object into the struct e.g. JSON make -> Struct Make.
@@ -203,3 +215,48 @@ func (t *SimpleChaincode) openAccount(stub shim.ChaincodeStubInterface, a Accoun
 	return true, nil
 }
 
+//==============================================================================================================================
+// makePayment- Sends money to Wallet Account using REST service exposed by Wallet
+//==============================================================================================================================
+func makePayment(w http.ResponseWriter, r *http.Request) (string,string  , error){
+	r.ParseForm()
+	url := "http://services-uscentral.skytap.com:10504/payments/9efa70ec-08b9-11e6-b512-3e1d05defe78"
+
+	var payment Payment
+	var resp *http.Response 
+	// res := r.FormValue("<your param name>")
+	payment.Destination = r.FormValue("destination");
+	payment.SourceAmount = r.FormValue("sourceAmount");
+	payment.DestinationAmount = r.FormValue("destinationAmount");
+	payment.Message = r.FormValue("message");
+	
+	// try Option 1
+	//bufObj := new(bytes.Buffer)
+	//json.NewEncoder(bufObj).Encode(payment)
+	// res, _ := http.Post(url, "application/json; charset=utf-8", bufObj)
+	
+	// try Option 2
+	paymentByteAry, err := json.Marshal(payment)
+	resp, err = http.Post(url, "application/json", bytes.NewBuffer(paymentByteAry))
+	
+	if err != nil { 
+		fmt.Printf("MAKEPAYMENTS: Error making payment : %s", err); 
+		return "", "", errors.New("Error while maying payment") 
+	}
+	// try Option 3
+	//req, err := http.NewRequest("POST", url, bytes.NewBuffer(payment))
+    	//req.Header.Set("Content-Type", "application/json")
+	//client := &http.Client{}
+	//resp, err := client.Do(req)
+	//if err != nil {
+	//    panic(err)
+	//}
+	//defer resp.Body.Close()
+
+	
+	fmt.Println("response Status:", resp.Status)
+	fmt.Println("response Headers:", resp.Header)
+	body, _ := ioutil.ReadAll(resp.Body)
+	fmt.Println("response Body:", string(body))
+	return resp.Status,resp.Status, errors.New("Error while maying payment") 
+}
