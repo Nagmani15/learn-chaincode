@@ -158,7 +158,7 @@ amount, err := stub.GetState("Default_Open_Balance");
 var a Account
 	acountId         := "\"AccountId\":\""+accountId+"\", "							// Variables to define the JSON
 	acountName         := "\"AccountName\":\""+accountName+"\", "	
-	balance           := "\"Balance\":\""+(string)amount+"\", "	
+	balance           := "\"Balance\":\""+string(amount[:])+"\", "	
 	timestamp          := "\"TimeStamp\":\""+timestamp_val+"
 	
 
