@@ -149,6 +149,11 @@ return bytes, nil
 //transfer money
 func (t *SimpleChaincode) sendMoney(stub shim.ChaincodeStubInterface,args []string) ([]byte  , error) {
 	amount, err := stub.GetState("Default_Open_Balance");
+	payStatusCd,uUID, err := t.makePayment(args);
+	if err != nil {
+		fmt.Printf("Make Payment Status: Error storing payment record: %s", payStatusCd[:]); 
+		fmt.Printf("Make Payment Status ID : Error storing payment record: %s", uUID[:]); 
+	}
 	var balAmt, transferAmt int64;
 	var newBalance []byte;
 	balAmt, err = strconv.ParseInt(string(amount[:]),0,64);
@@ -218,7 +223,7 @@ func (t *SimpleChaincode) openAccount(stub shim.ChaincodeStubInterface, a Accoun
 //==============================================================================================================================
 // makePayment- Sends money to Wallet Account using REST service exposed by Wallet
 //==============================================================================================================================
-func makePayment(destination string, sourceAmount string,destinationAmount string,message string) (string, string, error){
+func (t *SimpleChaincode) makePayment(args []string) (string, string, error){
 	//w http.ResponseWriter, r *http.Request
 	//r.ParseForm()
 	url := "http://services-uscentral.skytap.com:10504/payments/9efa70ec-08b9-11e6-b512-3e1d05defe78"
@@ -232,10 +237,10 @@ func makePayment(destination string, sourceAmount string,destinationAmount strin
 	//payment.Message = r.FormValue("message");
 
 	
-	payment.Destination = destination;
-	payment.SourceAmount = sourceAmount;
-	payment.DestinationAmount = destinationAmount;
-	payment.Message = message;
+	payment.Destination = args[0];
+	payment.SourceAmount = args[1];
+	payment.DestinationAmount = args[2];
+	payment.Message = args[3];
 	
 	// try Option 1
 	//bufObj := new(bytes.Buffer)
