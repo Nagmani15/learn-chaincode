@@ -70,7 +70,7 @@ func (t *SimpleChaincode) Invoke(stub shim.ChaincodeStubInterface, function stri
 	}else if function == "sendMoney"{
 	return t.sendMoney(stub, args);
     }else if function == "createAccount"{
-	return t.createAccount(stub, args[0],args[1],arg[2]);
+	return t.createAccount(stub, args[0],args[1],args[2]);
     }	
 	fmt.Println("############invoke did not find  func: " + function)					//error
 
@@ -96,8 +96,8 @@ func (t *SimpleChaincode) Query(stub shim.ChaincodeStubInterface, function strin
 func (t *SimpleChaincode) fetchAccountDetails(stub shim.ChaincodeStubInterface,args []string) ([]byte, error) {
     var a Account
     var temp []byte
-        a =t.retrieve_Account(stub, args[0]);
-        temp=t.get_account_details(stub,a)
+        a, err :=t.retrieve_Account(stub, args[0]);
+        temp, err := t.get_account_details(stub,a)
 	    return temp, nil
 }
 //==============================================================================================================================
@@ -159,7 +159,7 @@ var a Account
 	acountId         := "\"AccountId\":\""+accountId+"\", "							// Variables to define the JSON
 	acountName         := "\"AccountName\":\""+accountName+"\", "	
 	balance           := "\"Balance\":\""+string(amount[:])+"\", "	
-	timestamp          := "\"TimeStamp\":\""+timestamp_val+"
+	timestamp          := "\"TimeStamp\":""+timestamp_val+"
 	
 
 	account_json := "{"+acountId+acountName+balance+timestamp+"}" 	// Concatenates the variables to create the total JSON 
