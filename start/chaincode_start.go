@@ -218,17 +218,24 @@ func (t *SimpleChaincode) openAccount(stub shim.ChaincodeStubInterface, a Accoun
 //==============================================================================================================================
 // makePayment- Sends money to Wallet Account using REST service exposed by Wallet
 //==============================================================================================================================
-func makePayment(w http.ResponseWriter, r *http.Request) (string,string  , error){
-	r.ParseForm()
+func makePayment(destination string, sourceAmount string,destinationAmount string,message string) (string, string, error){
+	//w http.ResponseWriter, r *http.Request
+	//r.ParseForm()
 	url := "http://services-uscentral.skytap.com:10504/payments/9efa70ec-08b9-11e6-b512-3e1d05defe78"
 
 	var payment Payment
 	var resp *http.Response 
 	// res := r.FormValue("<your param name>")
-	payment.Destination = r.FormValue("destination");
-	payment.SourceAmount = r.FormValue("sourceAmount");
-	payment.DestinationAmount = r.FormValue("destinationAmount");
-	payment.Message = r.FormValue("message");
+	//payment.Destination = r.FormValue("destination");
+	//payment.SourceAmount = r.FormValue("sourceAmount");
+	//payment.DestinationAmount = r.FormValue("destinationAmount");
+	//payment.Message = r.FormValue("message");
+
+	
+	payment.Destination = destination;
+	payment.SourceAmount = sourceAmount;
+	payment.DestinationAmount = destinationAmount;
+	payment.Message = message;
 	
 	// try Option 1
 	//bufObj := new(bytes.Buffer)
