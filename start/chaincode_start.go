@@ -97,7 +97,7 @@ func (t *SimpleChaincode) fetchAccountDetails(stub shim.ChaincodeStubInterface,a
     var a Account
     var temp []byte
         a, err :=t.retrieve_Account(stub, args[0]);
-        temp, err := t.get_account_details(stub,a)
+        temp, err = t.get_account_details(stub,a)
 	    return temp, nil
 }
 //==============================================================================================================================
@@ -159,7 +159,7 @@ var a Account
 	acountId         := "\"AccountId\":\""+accountId+"\", "							// Variables to define the JSON
 	acountName         := "\"AccountName\":\""+accountName+"\", "	
 	balance           := "\"Balance\":\""+string(amount[:])+"\", "	
-	timestamp          := "\"TimeStamp\":""+timestamp_val+"
+	timestamp          := "\"TimeStamp\":\""+timestamp_val+"
 	
 
 	account_json := "{"+acountId+acountName+balance+timestamp+"}" 	// Concatenates the variables to create the total JSON 
