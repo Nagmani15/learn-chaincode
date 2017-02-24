@@ -44,10 +44,10 @@ fmt.Println("Init is running " )
 	if len(args) != 3 {
 		return nil, errors.New("############Incorrect number  of arguments. Expecting 1")
 	}
- stub.PutState("Initial_Amount", []byte(args[0]))
-  stub.PutState("account_Namet", []byte(args[1]))
-   stub.PutState("timeStamp", []byte(args[2]))
-  fmt.Println(" Data writing done " )
+	stub.PutState("Initial_Amount", []byte(args[0]))
+	stub.PutState("Account_Name", []byte(args[1]))
+	stub.PutState("TimeStamp", []byte(args[2]))
+	fmt.Println(" Data writing done " )
 	return nil, nil
 }
 
@@ -91,14 +91,19 @@ func (t *SimpleChaincode) checkBalance(stub shim.ChaincodeStubInterface,args []s
 //transfer money
 func (t *SimpleChaincode) sendMoney(stub shim.ChaincodeStubInterface,args []string) ([]byte  , error) {
 	amount, err := stub.GetState("Initial_Amount");
-	var balAmt, transferAmt int;
-	balAmt, err = strconv.ParseInt(string(amount[:]),0,32);
-	transferAmt, err = strconv.ParseInt(args[0],0, 32);
-    err = stub.PutState("Initial_Amount", []byte(strconv.Itoa( balAmt- transferAmt)));
+	var balAmt, transferAmt int64;
+	var newBalance []byte;
+	balAmt, err = strconv.ParseInt(string(amount[:]),0,64);
+	transferAmt, err = strconv.ParseInt(args[0],0, 64);
+	newBalance = []byte(strconv.Itoa( int(balAmt) - int(transferAmt)))
+	err = stub.PutState("Initial_Amount", newBalance);
 
+	//err = stub.PutState("Initial_Amount", []byte(strconv.Itoa( balAmt- transferAmt)));
+	
 	if err != nil { 
 		fmt.Printf("SAVE_CHANGES: Error storing payment record: %s", err); 
 		return nil, errors.New("Error storing payment record") 
 	}
-	return nil, errors.New("############Received unknown function query: "+string(amount[:]))
+	//return nil, errors.New("############Received unknown function query: "+string(amount[:]))
+	return nil, nil
 }
