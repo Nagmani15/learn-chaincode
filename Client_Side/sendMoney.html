@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<script src="sendMoney.js"></script>
+<body>
+
+<center>
+<div  ng-app="sendMoneyAPP" ng-controller="sendMoneyController">
+ <input type="hidden"  ng-model="senderAccountId" value="{{accountId}}" />
+   <input type="hidden"  ng-model="chaincodeId" value="{{chaincodeId}}" />
+ Recipient Account ID:<br>
+  <input type="text" name="recipientAccountId" value=""><br>
+Recipient Name:<br>
+  <input type="text" name="accountName" value=""><br>
+  Transfer Amount:<br>
+  <input type="text" name="transferAmt" value=""><br><br>
+  <button ng-click="sendAmount()">Send Amount</button>
+  </div>
+  </center>
+
+</body>
+</html>

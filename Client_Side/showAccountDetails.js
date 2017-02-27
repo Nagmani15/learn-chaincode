@@ -1,24 +1,25 @@
- angular.module('createAccountAPP',[]).controller('accountController',function($scope,$http,$window){	    
-	$scope.createAccount = function(){
+ angular.module('showAccountDetailsApp',[]).controller('showAccountDetailsController',function($scope,$http,$window){	    
+	
 		//$window.location.href = 'home.html';
-		var accountId=$scope.accountId;
-		var accountName=$scope.accountName;
-		var timestamp=new Date();
+		var url=$window.location.href.split("=");
+	    var chaincodeId = url[1];
+		var accountId = url[2];
+		
 		//var hashcode='1111';
 		//var url='checkBalance.html?hashkey='+hashcode;
 		//	$window.location.href = url;
 		var dataObj = {
 			"jsonrpc": "2.0",
-			"method": "invoke",
+			"method": "query",
 			"params": {
 				"type": 1,
 				"chaincodeID": {
-					"path":  $scope.chaincodeId
+					"path": chaincodeId
 				},
 				"ctorMsg": {
-					"function": "createAccount",
+					"function": "fetchAccountDetails",
 					"args": [
-						$scope.accountId,$scope.accountName,"+timestamp+"
+						accountId
 					]
 				},
 				"secureContext": "user_type1_0"
@@ -28,14 +29,18 @@
 		alert(dataObj);	 
 		var res = $http.post('https://597b2346e73641e894bad9d96ccb3031-vp0.us.blockchain.ibm.com:5004/chaincode', dataObj);
 		res.success(function(data, status, headers, config) {					
-			var url='createAccountSuccess.html';
-		$window.location.href = url;
+			$scope.balance=data.result.message.balance;
+			$scope.accountId=accountId;
+			$scope.chaincodeId=chaincodeId;
 		});
 		res.error(function(data, status, headers, config) {
 			alert( "failure message: " + JSON.stringify(data));
-			$window.location.href = 'createAccountFailure.html';
+			
 		});
+		$scope.transferMoney = function(){
+		$window.location.href = 'sendMoney.html?chaincodeId='+$scope.chaincodeId+'&accountId='+$scope.accountId;
+	
+		}
 		
-		
-	}
+	
 });
