@@ -257,10 +257,10 @@ func (t *SimpleChaincode) makePayment(args []string) (string, string, error){
 	//payment.Message = r.FormValue("message");
 
 	
-	payment.Destination = args[0];
-	payment.SourceAmount = args[1];
+	payment.Destination = args[1];
+	payment.SourceAmount = args[2];
 	payment.DestinationAmount = args[2];
-	payment.Message = args[3];
+	payment.Message = "Send Money";
 	
 	// try Option 1
 	//bufObj := new(bytes.Buffer)
