@@ -64,7 +64,7 @@ func main() {
 func (t *SimpleChaincode) Init(stub shim.ChaincodeStubInterface, function string, args []string) ([]byte, error) {
 fmt.Println("Init is running " )
 
-	if len(args) != 3 {
+	if len(args) != 1 {
 		return nil, errors.New("############Incorrect number  of arguments. Expecting 1")
 	}
 	stub.PutState("Default_Open_Balance", []byte(args[0]))
