@@ -1,12 +1,9 @@
 /*
 Copyright IBM Corp 2016 All Rights Reserved.
-
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
-
 		 http://www.apache.org/licenses/LICENSE-2.0
-
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -149,9 +146,10 @@ return bytes, nil
 //transfer money
 func (t *SimpleChaincode) sendMoney(stub shim.ChaincodeStubInterface,args []string) ([]byte  , error) {
 //retrieve Account Details
- var a Account
+	var a Account
+	var amount string
         a, err :=t.retrieve_Account(stub, args[0]);
-	amount, err = a.Balance;
+	amount = a.Balance;
 	
 	//make payment
 	payStatusCd,uUID, err := t.makePayment(args);
@@ -178,7 +176,8 @@ func (t *SimpleChaincode) sendMoney(stub shim.ChaincodeStubInterface,args []stri
 	err = stub.PutState(a.AccountId, bytes)
 
 	if err != nil { 
-	fmt.Printf("SAVE_CHANGES: Error storing Account record: %s", err); return false, errors.New("Error storing Account record") 
+	fmt.Printf("SAVE_CHANGES: Error storing Account record: %s", err); 
+	return nil, errors.New("Error storing Account record") 
 	}
 
 	//err = stub.PutState("Initial_Amount", []byte(strconv.Itoa( balAmt- transferAmt)));
