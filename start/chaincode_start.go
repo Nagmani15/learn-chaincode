@@ -156,6 +156,7 @@ func (t *SimpleChaincode) sendMoney(stub shim.ChaincodeStubInterface,args []stri
 	if err != nil {
 		fmt.Printf("Make Payment Status: Error storing payment record: %s", payStatusCd[:]); 
 		fmt.Printf("Make Payment Status ID : Error storing payment record: %s", uUID[:]); 
+		return nil, errors.New("Make Payment not happened") 
 	}
 	
 	var balAmt, transferAmt int64;
