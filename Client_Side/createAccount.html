@@ -1,16 +1,32 @@
 <!DOCTYPE html>
 <html>
-<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-<script src="createAccount.js"></script>
-<body>
-</BR>
-<CENTER><label> <H1>Create Account</H1></label></CENTER>
-<CENTER><div  ng-app="createAccountAPP" ng-controller="accountController">
- 	<label> Chaincode ID: <input type="text" placeholder="chaincode id" ng-model="chaincodeId" /></label></BR></BR>
-	<label> Account ID: <input type="text" placeholder="account id" ng-model="accountId" /></label></BR></BR>
-	<label> Account Name : <input type="text" placeholder="account name" ng-model="accountName" /></label></BR></BR>
-	<button ng-click="createAccount()">Submit</button>
-</div>
-</CENTER>
-</body>
+	<head>
+		<link href="style.css" rel="stylesheet" type="text/css"/>
+		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+		<script src="createAccount.js"></script>
+	</head>
+	<body>
+		<div class="container">
+			<div class="mBody">
+				<div class="loginHeader">
+					<h1>Create Account</h1>
+				</div>
+				<div class="loginBody" ng-app="createAccountAPP" ng-controller="accountController">
+				<div class="loginCred">
+					<div>
+						<label> Chaincode ID:</label> <input class="mL12" type="text" placeholder="chaincode id" ng-model="chaincodeId" />
+					</div>
+					<div class="mT20">
+						<label> Account ID:</label>  <input class="mL30" type="text" placeholder="account id" ng-model="accountId" />
+					</div>
+					<div class="mT20">
+						<label> Account Name :</label>  <input type="text" placeholder="account name" ng-model="accountName" />
+					</div>
+					<button class="mT20" ng-click="createAccount()">Submit</button>
+				
+				</div>
+				</div>
+			</div>	
+		</div>	
+	</body>
 </html>

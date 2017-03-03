@@ -1,17 +1,42 @@
 <!DOCTYPE html>
 <html>
-<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-<script src="login.js"></script>
-<body>
-<Table><TR><TD></TD><TD></TD><TD></TD><TD text-align="center" >Login</TD></TR>
-</table>
-</BR>
-<div  ng-app="loginAPP" ng-controller="loginController">
- 	<label> ChainCode Id : <input type="text" placeholder="chaincodeId" ng-model="chaincodeId" /></label></BR>
-	<label> User Name : <input type="text" placeholder="Username" ng-model="accountId" /></label></BR>
-	<label> Password :&amp;amp; <input type="password" placeholder="Password" ng-model="password" /></label></BR></BR>
-	<button ng-click="authenticate()">Login</button>
-</div>
-
-</body>
+	<head>
+		<link href="style.css" rel="stylesheet" type="text/css"/>
+		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+		<script src="login.js"></script>
+	</head>
+	<body>
+		<div class="container">
+			<div class="mHeader">
+				<h1>Block Chain Application</h1>
+			</div>
+			<div class="mBody">
+				<div class="loginHeader">
+					<h1>Login</h1>
+				</div>
+				<div class="loginBody" ng-app="loginAPP" ng-controller="loginController">
+					<div class="loginCred">
+						<div>
+							<label> ChainCode Id :</label>
+							<input type="text" class="mL10" placeholder="chaincodeId" ng-model="chaincodeId" />
+						</div>
+						<div class="mT20">
+							<label> User Name : </label>
+							<input type="text" class="mL25" placeholder="Username" ng-model="accountId" />
+						</div>
+						<div class="mT20">
+							<label> Password : </label>
+							<input type="password" class="mL35" placeholder="Password" ng-model="password" />
+						</div>
+						<div class="mT20 textCenter">
+							<button ng-click="authenticate()">Login</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="mFooter">
+				
+			</div>
+		</div>
+	</body>
 </html>

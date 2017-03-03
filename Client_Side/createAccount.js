@@ -18,7 +18,7 @@
 				"ctorMsg": {
 					"function": "createAccount",
 					"args": [
-						$scope.accountId,$scope.accountName,"+timestamp+"
+						$scope.accountId,$scope.accountName,$scope.timestamp
 					]
 				},
 				"secureContext": "user_type1_0"

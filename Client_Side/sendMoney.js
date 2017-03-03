@@ -3,7 +3,7 @@
 	    $scope.chaincodeId = url[1];
 		$scope.accountId = url[2];
 	$scope.sendAmount=function(){
-		var timestamp=new Date();
+		
 		var dataObj = {
 			"jsonrpc": "2.0",
 			"method": "invoke",
@@ -15,7 +15,7 @@
 				"ctorMsg": {
 					"function": "sendMoney",
 					"args": [
-						$scope.senderAccountId,$scope.recipientAccountId,$scope.transferAmt,"+timestamp+"
+						$scope.senderAccountId,$scope.recipientAccountId,,$scope.transferAmt,"23/2/2017"
 					]
 				},
 				"secureContext": "user_type1_0"

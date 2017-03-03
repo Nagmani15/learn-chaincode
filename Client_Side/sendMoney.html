@@ -1,22 +1,32 @@
 <!DOCTYPE html>
 <html>
-<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-<script src="sendMoney.js"></script>
-<body>
-
-<center>
-<div  ng-app="sendMoneyAPP" ng-controller="sendMoneyController">
- <input type="hidden"  ng-model="senderAccountId" value="{{accountId}}" />
-   <input type="hidden"  ng-model="chaincodeId" value="{{chaincodeId}}" />
- Recipient Account ID:<br>
-  <input type="text" name="recipientAccountId" value=""><br>
-Recipient Name:<br>
-  <input type="text" name="accountName" value=""><br>
-  Transfer Amount:<br>
-  <input type="text" name="transferAmt" value=""><br><br>
-  <button ng-click="sendAmount()">Send Amount</button>
-  </div>
-  </center>
-
-</body>
+	<head>
+		<link href="style.css" rel="stylesheet" type="text/css"/><script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+		<script src="sendMoney.js"></script>
+	</head>
+	<body>
+		<div class="container">
+			<div class="mBody">
+				<div class="loginBody">
+					<div ng-app="sendMoneyAPP" ng-controller="sendMoneyController">
+						<input type="hidden"  ng-model="senderAccountId" value="{{accountId}}" />
+						<input type="hidden"  ng-model="chaincodeId" value="{{chaincodeId}}" />
+						<div class="mT20">
+							<label>Recipient Account ID:</label>
+							<input type="text" ng-model="recipientAccountId" value="">
+						</div>
+						<div class="mT20">
+							<label>Recipient Name:</label>
+							<input class="mL33" type="text" ng-model="accountName" value="">
+						</div>
+						<div class="mT20">
+							<label>Transfer Amount:</label>
+							<input class="mL25" type="text" ng-model="transferAmt" value="">
+						</div>
+						<button ng-click="sendAmount()" class="mT20">Send Amount</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
 </html>
